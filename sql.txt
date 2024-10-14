@@ -1,0 +1,81 @@
+Use chat;
+
+create table teste_table(
+ faca longblob
+);
+
+select * from teste_table;
+
+alter table user_account
+add followers int;
+
+alter table user_account
+add user_img blob;
+
+create table followers_control(
+ follower varchar(40) not null,
+ followed varchar(40) not null
+);
+
+select * from followers_control;
+select * from user_account;
+
+delete from followers_control where follower = '';
+#following: show everyone he is following
+#folloed: show every your followers
+
+select * from followers_control where followed = '@aother';
+
+set sql_safe_updates = 0;
+update user_account
+set followers = 0;
+
+delete from comments where tag_name = 'unknow';
+
+
+select * from post;
+
+update user_account
+set followers = 0 where tag_name = '@mr_hello';
+
+insert into user_account(tag_name, user_name, sign_up, email, user_password,user_img)
+values('@teste_img','Mr.gulio','0000-00-00','faca@gmail.com', 'senha12345.',load_file("D:\faca\teste\antegeddon.png"));
+
+update user_account
+set user_img = load_file('D:\faca\teste\antegeddon.png');
+select * from user_account;
+select * from post;
+select * from comments;
+
+alter table post
+add date_post timestamp default current_timestamp;
+
+
+create table comments(
+ comment_id char(20) not null default(MD5(RAND())) primary key,
+ post_id char(10),
+ tag_name varchar(50),
+ comment_date timestamp default current_timestamp,
+ comment_description varchar(200)
+);
+
+create table like_control(
+	tag_name varchar(50),
+    post_id varchar(15)
+);
+
+insert into like_control(tag_name, post_id)
+values('@mr.river','58e62efa9f');
+
+
+alter table like_control
+add comment_id char(20) not null default(MD5(RAND())) primary key;
+
+insert into comments(post_id,tag_name,comment_description)
+values('1a921502bd','@galinha','OMG every time is this.');
+select * from user_account limit 4 offset 2;
+
+
+
+
+
